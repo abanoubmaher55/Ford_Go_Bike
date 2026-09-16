@@ -1,8 +1,4 @@
 station_id,station_name,latitude,longitude
-21,Montgomery St BART Station (Market St at 2nd St),37.7896254,-122.400811
-23,The Embarcadero at Steuart St,37.791464,-122.391034
-86,Market St at Dolores St,37.7693053,-122.4268256
-375,Grove St at Masonic Ave,37.77483629,-122.4465457
 7,Frank H Ogawa Plaza,37.80456235,-122.2717381
 93,4th St at Mission Bay Blvd S,37.7704074,-122.3911984
 300,Palm St at Willow St,37.3172979,-121.884995
@@ -48,6 +44,7 @@ station_id,station_name,latitude,longitude
 240,Haste St at Telegraph Ave,37.8660431,-122.2588044
 61,Howard St at 8th St,37.7765126,-122.4113061
 36,Folsom St at 3rd St,37.78383,-122.39887
+21,Montgomery St BART Station (Market St at 2nd St),37.7896254,-122.400811
 34,Father Alfred E Boeddeker Park,37.7839879,-122.412408
 13,Commercial St at Montgomery St,37.794231,-122.402923
 345,Hubbell St at 16th St,37.7664827,-122.3982793
@@ -99,9 +96,12 @@ station_id,station_name,latitude,longitude
 123,Folsom St at 19th St,37.7605936,-122.4148171
 172,College Ave at Taft Ave,37.8417999,-122.2515349
 114,Rhode Island St at 17th St,37.7644783,-122.4025701
+375,Grove St at Masonic Ave,37.77483629,-122.4465457
 244,Shattuck Ave at Hearst Ave,37.87367621,-122.2684872
 8,The Embarcadero at Vallejo St,37.799953,-122.398525
+23,The Embarcadero at Steuart St,37.791464,-122.391034
 55,Webster St at Grove St,37.7770527,-122.4295585
+86,Market St at Dolores St,37.7693053,-122.4268256
 31,Raymond Kimbell Playground,37.78381271,-122.4345589
 62,Victoria Manalo Draves Park,37.77779057,-122.4064319
 125,20th St at Bryant St,37.7592005,-122.409851
@@ -273,7 +273,6 @@ station_id,station_name,latitude,longitude
 351,10th St at University Ave,37.86906048,-122.2933996
 218,DeFremery Park,37.8123315,-122.2851712
 257,Fifth St at Delaware St,37.87040712,-122.2996759
-358,Williams Ave at 3rd St,37.72927865,-122.3928961
 233,4th Ave at E 12th St (Temporary Location),37.795913,-122.255547
 173,Shattuck Ave at 55th St,37.8403643,-122.2644881
 153,59th St at Horton St,37.8409452,-122.2913604
@@ -305,6 +304,7 @@ station_id,station_name,latitude,longitude
 205,Miles Ave at Cavour St,37.8388,-122.258732
 306,Saint James Park,37.339301,-121.889937
 231,14th St at Filbert St,37.80874983,-122.2832823
+358,Williams Ave at 3rd St,37.72927865,-122.3928961
 227,Foothill Blvd at Fruitvale Ave,37.7837569,-122.2226033
 236,Market St at 8th St,37.8036865,-122.282497
 388,Backesto Park (Jackson St at 13th St),37.35288683,-121.8860498
@@ -322,9 +322,9 @@ station_id,station_name,latitude,longitude
 303,San Pedro St at Hedding St,37.352601,-121.905733
 209,45th St at MLK Jr Way,37.8335577,-122.2674183
 289,5th St at Taylor St,37.3510173,-121.8959209
-229,Foothill Blvd at 42nd Ave,37.7757452,-122.2130372
 301,Willow St at Vine St,37.3184498,-121.8831724
 226,26th Ave at International Blvd,37.781123,-122.2329915
 234,Farnam St at Fruitvale Ave,37.778058,-122.2254
+229,Foothill Blvd at 42nd Ave,37.7757452,-122.2130372
 224,21st Ave at International Blvd,37.78485466,-122.2393048
 37,2nd St at Folsom St,37.78499973,-122.3959356
