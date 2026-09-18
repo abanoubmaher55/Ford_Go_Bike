@@ -14,87 +14,23 @@ num_col = df.select_dtypes(include="number").columns
 
 app = Dash(__name__)
 
-app.index_string = '''
-<!DOCTYPE html>
-<html>
-    <head>
-        {%metas%}
-        <title>{%title%}</title>
-        {%favicon%}
-        {%css%}
-        <style>
-            .Select-control, .Select-menu-outer, .Select-menu, .Select-value, .Select-placeholder {
-                background-color: #121C15 !important;
-                color: #E8F5E9 !important;
-                border-color: #2C4432 !important;
-            }
-            .Select--multi .Select-value {
-                background-color: #1B2A1F !important;
-                border-color: #4CAF50 !important;
-                color: #E8F5E9 !important;
-            }
-            .Select-input > input {
-                color: #E8F5E9 !important;
-            }
-            .Select-arrow {
-                border-color: #A5B5A7 transparent transparent !important;
-            }
-            .VirtualizedSelectOption {
-                background-color: #121C15 !important;
-                color: #E8F5E9 !important;
-            }
-            .VirtualizedSelectFocusedOption {
-                background-color: #243528 !important;
-                color: #E8F5E9 !important;
-            }
-            ::-webkit-scrollbar {
-                width: 10px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #0B120D;
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #2C4432;
-                border-radius: 10px;
-            }
-            body {
-                background-color: #0B120D;
-            }
-        </style>
-    </head>
-    <body>
-        {%app_entry%}
-        <footer>
-            {%config%}
-            {%scripts%}
-            {%renderer%}
-        </footer>
-    </body>
-</html>
-'''
-
 COLORS = {
-    "background": "#0B120D",
-    "card": "#121C15",
-    "card_hover": "#18251B",
-    "primary": "#4CAF50",
-    "secondary": "#66BB6A",
-    "accent": "#81C784",
-    "dark": "#071009",
-    "light": "#1B2A1F",
-    "very_light": "#243528",
-    "text": "#E8F5E9",
-    "muted_text": "#A5B5A7",
+    "background": "#F7FAF7",
+    "primary": "#2E7D32",
+    "secondary": "#43A047",
+    "accent": "#66BB6A",
+    "light": "#E8F5E9",
+    "dark": "#1B5E20",
+    "text": "#263238",
     "white": "#FFFFFF",
-    "border": "#2C4432",
 }
 
 GREEN_THEME = {
-    "dark": "#071009",
-    "primary": "#4CAF50",
-    "secondary": "#66BB6A",
-    "light": "#81C784",
-    "very_light": "#1B2A1F",
+    "dark": "#1B5E20",
+    "primary": "#2E7D32",
+    "secondary": "#43A047",
+    "light": "#66BB6A",
+    "very_light": "#E8F5E9",
 }
 
 FONT_FAMILY = "Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
@@ -108,40 +44,39 @@ DAYS = sorted(df_time["day_of_week"].unique().tolist())
 
 def build_checklist(component_id, options, default_all=True):
     """Small helper to keep checklist creation consistent + DRY."""
-    return dcc.Dropdown(
+    return dcc.Checklist(
         id=component_id,
         options=[{"label": f" {opt}", "value": opt} for opt in options],
         value=options if default_all else [],
-        multi=True,
+        labelStyle={"display": "block", "marginBottom": "4px", "color": COLORS["text"]},
         style={"marginBottom": "16px"},
     )
 
 
 CARD_STYLE = {
-    "backgroundColor": COLORS["card"],
+    "backgroundColor": COLORS["white"],
     "borderRadius": "14px",
-    "boxShadow": "0 2px 10px rgba(0, 0, 0, 0.4)",
+    "boxShadow": "0 2px 10px rgba(27, 94, 32, 0.12)",
     "padding": "18px 20px",
     "marginBottom": "18px",
-    "border": f"1px solid {COLORS['border']}",
 }
 
 
 def side_bar():
     return html.Div(
         [
-            html.H3("Filters", style={"color": COLORS["text"], "marginBottom": "18px"}),
+            html.H3("Filters", style={"color": COLORS["dark"], "marginBottom": "18px"}),
 
-            html.Label("User Type", style={"fontWeight": "600", "color": COLORS["accent"]}),
+            html.Label("User Type", style={"fontWeight": "600", "color": COLORS["dark"]}),
             build_checklist("user-type-filter", USER_TYPE_OPTIONS),
 
-            html.Label("Gender", style={"fontWeight": "600", "color": COLORS["accent"]}),
+            html.Label("Gender", style={"fontWeight": "600", "color": COLORS["dark"]}),
             build_checklist("gender-filter", GENDER_OPTIONS),
 
-            html.Label("Age Group", style={"fontWeight": "600", "color": COLORS["accent"]}),
+            html.Label("Age Group", style={"fontWeight": "600", "color": COLORS["dark"]}),
             build_checklist("age-group-filter", AGE_GROUP_OPTIONS),
 
-            html.Label("Day of Week", style={"fontWeight": "600", "color": COLORS["accent"]}),
+            html.Label("Day of Week", style={"fontWeight": "600", "color": COLORS["dark"]}),
             build_checklist("day-filter", DAYS),
         ],
         style={
@@ -164,8 +99,8 @@ def build_header():
                     html.Span(
                         "DATA ANALYTICS DASHBOARD",
                         style={
-                            "backgroundColor": "rgba(255, 255, 255, 0.08)",
-                            "color": COLORS["accent"],
+                            "backgroundColor": "rgba(255, 255, 255, 0.12)",
+                            "color": COLORS["light"],
                             "fontSize": "11px",
                             "fontWeight": "700",
                             "letterSpacing": "1.5px",
@@ -173,7 +108,7 @@ def build_header():
                             "borderRadius": "20px",
                             "display": "inline-block",
                             "marginBottom": "14px",
-                            "border": f"1px solid rgba(255, 255, 255, 0.12)",
+                            "border": f"1px solid rgba(255, 255, 255, 0.18)",
                         },
                     ),
                     html.H1(
@@ -182,7 +117,7 @@ def build_header():
                             "Ford GoBike Analytics",
                         ],
                         style={
-                            "color": COLORS["text"],
+                            "color": COLORS["white"],
                             "fontFamily": "'Inter', 'Segoe UI', sans-serif",
                             "fontSize": "clamp(26px, 3.2vw, 36px)",
                             "fontWeight": "700",
@@ -193,7 +128,7 @@ def build_header():
                     html.P(
                         "Explore trip behavior, rider demographics, and mobility patterns.",
                         style={
-                            "color": COLORS["muted_text"],
+                            "color": "rgba(255, 255, 255, 0.75)",
                             "fontFamily": "'Inter', 'Segoe UI', sans-serif",
                             "fontSize": "14.5px",
                             "fontWeight": "400",
@@ -216,15 +151,15 @@ def build_header():
                             html.Span(
                                 "2019 Trip Analysis",
                                 style={
-                                    "color": COLORS["text"],
+                                    "color": COLORS["white"],
                                     "fontSize": "13px",
                                     "fontWeight": "600",
                                 },
                             ),
                         ],
                         style={
-                            "backgroundColor": "rgba(255, 255, 255, 0.06)",
-                            "border": "1px solid rgba(255, 255, 255, 0.10)",
+                            "backgroundColor": "rgba(255, 255, 255, 0.08)",
+                            "border": "1px solid rgba(255, 255, 255, 0.14)",
                             "borderRadius": "10px",
                             "padding": "8px 14px",
                             "marginBottom": "10px",
@@ -240,15 +175,15 @@ def build_header():
                             html.Span(
                                 "Interactive Dashboard",
                                 style={
-                                    "color": COLORS["text"],
+                                    "color": COLORS["white"],
                                     "fontSize": "13px",
                                     "fontWeight": "600",
                                 },
                             ),
                         ],
                         style={
-                            "backgroundColor": "rgba(255, 255, 255, 0.06)",
-                            "border": "1px solid rgba(255, 255, 255, 0.10)",
+                            "backgroundColor": "rgba(255, 255, 255, 0.08)",
+                            "border": "1px solid rgba(255, 255, 255, 0.14)",
                             "borderRadius": "10px",
                             "padding": "8px 14px",
                             "whiteSpace": "nowrap",
@@ -264,9 +199,9 @@ def build_header():
             ),
         ],
         style={
-            "background": f"linear-gradient(135deg, {COLORS['dark']} 0%, {COLORS['light']} 55%, {COLORS['primary']} 100%)",
+            "background": f"linear-gradient(135deg, {COLORS['dark']} 0%, {COLORS['primary']} 55%, {COLORS['secondary']} 100%)",
             "borderRadius": "18px",
-            "boxShadow": "0 8px 24px rgba(0, 0, 0, 0.5)",
+            "boxShadow": "0 8px 24px rgba(27, 94, 32, 0.28)",
             "padding": "32px 40px",
             "marginBottom": "24px",
             "display": "flex",
@@ -276,7 +211,6 @@ def build_header():
             "gap": "24px",
             "width": "100%",
             "boxSizing": "border-box",
-            "border": f"1px solid {COLORS['border']}",
         },
     )
 
@@ -285,12 +219,11 @@ def graph_card(graph_id):
     return html.Div(
         dcc.Graph(id=graph_id, config={"displayModeBar": False}, style={"height": "100%"}),
         style={
-            "backgroundColor": COLORS["card"],
+            "backgroundColor": COLORS["white"],
             "borderRadius": "16px",
-            "boxShadow": "0 4px 16px rgba(0, 0, 0, 0.4)",
+            "boxShadow": "0 4px 16px rgba(27, 94, 32, 0.10)",
             "padding": "16px",
-            "minWidth": "0",
-            "border": f"1px solid {COLORS['border']}",
+            "minWidth": "0", 
         },
     )
 
@@ -317,7 +250,7 @@ app.layout = html.Div([
             ),
         ],
         style={
-            "backgroundColor": COLORS["background"],
+            "backgroundColor": "#F7FAF7",
             "minHeight": "100vh",
             "padding": "30px",
             "display": "flex",
@@ -325,24 +258,24 @@ app.layout = html.Div([
             "alignItems": "flex-start",
         },
     )
-], style={"backgroundColor": COLORS["background"]})
+])
 def style_figure(fig, x_title=None, y_title=None):
     """Applies consistent, modern styling to a Plotly figure in-place and returns it."""
     fig.update_layout(
-        template="plotly_dark",
-        paper_bgcolor=COLORS["card"],
-        plot_bgcolor=COLORS["card"],
-        font=dict(family=FONT_FAMILY, size=13, color=COLORS["text"]),
+        template="plotly_white",
+        paper_bgcolor="#FFFFFF",
+        plot_bgcolor="#FFFFFF",
+        font=dict(family=FONT_FAMILY, size=13, color="#37474F"),
         title=dict(
-            font=dict(family=FONT_FAMILY, size=17, color=COLORS["accent"], weight="bold"),
+            font=dict(family=FONT_FAMILY, size=17, color=GREEN_THEME["dark"], weight="bold"),
             x=0.02,
             xanchor="left",
         ),
         margin=dict(l=50, r=30, t=60, b=50),
         bargap=0.15,
         hoverlabel=dict(
-            bgcolor=COLORS["light"],
-            font=dict(family=FONT_FAMILY, size=12, color=COLORS["text"]),
+            bgcolor="#FFFFFF",
+            font=dict(family=FONT_FAMILY, size=12, color="#263238"),
             bordercolor=GREEN_THEME["secondary"],
         ),
         showlegend=False,
@@ -351,21 +284,21 @@ def style_figure(fig, x_title=None, y_title=None):
     )
 
     fig.update_xaxes(
-        title=dict(text=x_title, font=dict(size=13, color=COLORS["muted_text"])),
+        title=dict(text=x_title, font=dict(size=13, color="#455A64")),
         showgrid=False,
         showline=True,
-        linecolor=COLORS["border"],
-        tickfont=dict(size=11, color=COLORS["muted_text"]),
+        linecolor="#CFD8DC",
+        tickfont=dict(size=11, color="#607D8B"),
         zeroline=False,
     )
 
     fig.update_yaxes(
-        title=dict(text=y_title, font=dict(size=13, color=COLORS["muted_text"])),
+        title=dict(text=y_title, font=dict(size=13, color="#455A64")),
         showgrid=True,
-        gridcolor=COLORS["border"],
+        gridcolor="#EEF3EC",
         gridwidth=1,
         showline=False,
-        tickfont=dict(size=11, color=COLORS["muted_text"]),
+        tickfont=dict(size=11, color="#607D8B"),
         zeroline=False,
     )
 
@@ -375,8 +308,6 @@ def style_figure(fig, x_title=None, y_title=None):
 
 def filter_dataframe(user_types, genders, age_groups, days):
     data = df.copy()
-    if not user_types or not genders or not age_groups or not days:
-        return data.iloc[0:0]
 
     if user_types:
         data = data[data["user_type"].isin(user_types)]
@@ -421,7 +352,7 @@ def update_dashboard(user_types, genders, age_groups, days):
         title="Trip Duration Distribution",
         color_discrete_sequence=[GREEN_THEME["primary"]],
     )
-    fig1.update_traces(marker_line_color=COLORS["dark"], marker_line_width=0.5, opacity=0.9)
+    fig1.update_traces(marker_line_color="#FFFFFF", marker_line_width=0.5, opacity=0.9)
     fig1 = style_figure(fig1, x_title="Duration (seconds)", y_title="Number of Trips")
 
     # Graph 2
@@ -432,7 +363,7 @@ def update_dashboard(user_types, genders, age_groups, days):
         title="Age Distribution",
         color_discrete_sequence=[GREEN_THEME["secondary"]],
     )
-    fig2.update_traces(marker_line_color=COLORS["dark"], marker_line_width=0.5, opacity=0.9)
+    fig2.update_traces(marker_line_color="#FFFFFF", marker_line_width=0.5, opacity=0.9)
     fig2 = style_figure(fig2, x_title="Age", y_title="Number of Users")
 
     # Graph 3
@@ -444,7 +375,7 @@ def update_dashboard(user_types, genders, age_groups, days):
         y="count",
         title="Users by Type",
         color="user_type",
-        color_discrete_sequence=[GREEN_THEME["light"], GREEN_THEME["primary"]],
+        color_discrete_sequence=[GREEN_THEME["dark"], GREEN_THEME["light"]],
     )
     fig3.update_traces(marker_line_width=0)
     fig3 = style_figure(fig3, x_title="User Type", y_title="Number of Users")
@@ -458,7 +389,7 @@ def update_dashboard(user_types, genders, age_groups, days):
         y="count",
         title="Users by Gender",
         color="member_gender",
-        color_discrete_sequence=[GREEN_THEME["light"], GREEN_THEME["primary"], GREEN_THEME["secondary"]],
+        color_discrete_sequence=[GREEN_THEME["dark"], GREEN_THEME["primary"], GREEN_THEME["light"]],
     )
     fig4.update_traces(marker_line_width=0)
     fig4 = style_figure(fig4, x_title="Gender", y_title="Number of Users")
