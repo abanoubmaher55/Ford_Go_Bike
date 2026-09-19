@@ -3,13 +3,7 @@ import plotly.express as px
 from components.cards import style_figure
 from components.colors import GREEN_THEME
 
-
 def create_time_charts(filtered):
-
-    # =====================================================
-    # Graph 5 - Trips by Day
-    # =====================================================
-
     DAYS = sorted(
         filtered["day_of_week"]
         .dropna()
@@ -32,13 +26,9 @@ def create_time_charts(filtered):
 
     fig5 = px.bar(
         day_counts,
-
         x="day_of_week",
-
         y="count",
-
         title="Trips by Day of Week",
-
         color_discrete_sequence=[
             GREEN_THEME["primary"]
         ],
@@ -51,16 +41,9 @@ def create_time_charts(filtered):
 
     fig5 = style_figure(
         fig5,
-
         x_title="Day",
-
         y_title="Number of Trips"
     )
-
-
-    # =====================================================
-    # Graph 6 - Trips by Hour
-    # =====================================================
 
     hour_counts = (
         filtered["start_hour"]
@@ -76,15 +59,10 @@ def create_time_charts(filtered):
 
     fig6 = px.line(
         hour_counts,
-
         x="start_hour",
-
         y="count",
-
         markers=True,
-
         title="Trips by Hour",
-
         color_discrete_sequence=[
             GREEN_THEME["secondary"]
         ],
@@ -95,7 +73,6 @@ def create_time_charts(filtered):
             width=3,
             color=GREEN_THEME["secondary"]
         ),
-
         marker=dict(
             size=7,
             color=GREEN_THEME["primary"]
@@ -104,16 +81,9 @@ def create_time_charts(filtered):
 
     fig6 = style_figure(
         fig6,
-
         x_title="Hour of Day",
-
         y_title="Number of Trips"
     )
-
-
-    # =====================================================
-    # Return
-    # =====================================================
 
     return (
         fig5,

@@ -1,73 +1,27 @@
 from dash import dcc
-
 from components.colors import COLORS
 
-
-# =========================================================
-# Checklist
-# =========================================================
-
-def build_checklist(
+def build_dropdown(
     component_id,
     options,
     default_all=True
 ):
-
-    """
-    Create a reusable checklist for dashboard filters.
-    """
-
-    return dcc.Checklist(
-
+    return dcc.Dropdown(
         id=component_id,
-
-        # =====================================================
-        # Options
-        # =====================================================
-
         options=[
             {
-                "label": f" {opt}",
+                "label": opt,
                 "value": opt
             }
-
             for opt in options
         ],
-
         value=options if default_all else [],
-
-        # =====================================================
-        # Text
-        # =====================================================
-
-        labelStyle={
-            "display": "block",
-
-            "marginBottom": "7px",
-
-            "color": COLORS["text"],
-
-            "fontSize": "13px",
-
-            "fontFamily": "Arial, sans-serif",
-        },
-
-        # =====================================================
-        # Checkbox
-        # =====================================================
-
-        inputStyle={
-            "marginRight": "8px",
-
-            # Teal instead of old green
-            "accentColor": COLORS["primary"],
-        },
-
-        # =====================================================
-        # Container
-        # =====================================================
-
+        multi=True,
+        placeholder="Select...",
         style={
             "marginBottom": "18px",
+            "color": COLORS["text"],
+            "fontFamily": "Arial, sans-serif",
+            "fontSize": "13px",
         },
     )

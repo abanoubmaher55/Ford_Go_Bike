@@ -3,29 +3,18 @@ import plotly.express as px
 from components.cards import style_figure
 from components.colors import GREEN_THEME
 
-
 def create_overview_charts(filtered):
-
-    # =====================================================
-    # Graph 1 - Trip Duration
-    # =====================================================
-
     duration_data = filtered.copy()
 
-    # Convert seconds to minutes
     duration_data["duration_min"] = (
         duration_data["duration_sec"] / 60
     )
 
     fig1 = px.histogram(
         duration_data,
-
         x="duration_min",
-
         nbins=30,
-
         title="Trip Duration Distribution",
-
         color_discrete_sequence=[
             GREEN_THEME["primary"]
         ],
@@ -33,34 +22,21 @@ def create_overview_charts(filtered):
 
     fig1.update_traces(
         marker_line_color=GREEN_THEME["dark"],
-
         marker_line_width=0.5,
-
         opacity=0.9,
     )
 
     fig1 = style_figure(
         fig1,
-
         x_title="Trip Duration (Minutes)",
-
         y_title="Number of Trips",
     )
 
-
-    # =====================================================
-    # Graph 2 - Age
-    # =====================================================
-
     fig2 = px.histogram(
         filtered,
-
         x="users' age",
-
         nbins=30,
-
         title="Age Distribution",
-
         color_discrete_sequence=[
             GREEN_THEME["secondary"]
         ],
@@ -68,24 +44,15 @@ def create_overview_charts(filtered):
 
     fig2.update_traces(
         marker_line_color=GREEN_THEME["dark"],
-
         marker_line_width=0.5,
-
         opacity=0.9,
     )
 
     fig2 = style_figure(
         fig2,
-
         x_title="Age",
-
         y_title="Number of Users",
     )
-
-
-    # =====================================================
-    # Graph 3 - User Type
-    # =====================================================
 
     user_counts = (
         filtered["user_type"]
@@ -100,15 +67,10 @@ def create_overview_charts(filtered):
 
     fig3 = px.bar(
         user_counts,
-
         x="user_type",
-
         y="count",
-
         title="Users by Type",
-
         color="user_type",
-
         color_discrete_sequence=[
             GREEN_THEME["primary"],
             GREEN_THEME["secondary"],
@@ -121,16 +83,9 @@ def create_overview_charts(filtered):
 
     fig3 = style_figure(
         fig3,
-
         x_title="User Type",
-
         y_title="Number of Users",
     )
-
-
-    # =====================================================
-    # Graph 4 - Gender
-    # =====================================================
 
     gender_counts = (
         filtered["member_gender"]
@@ -145,15 +100,10 @@ def create_overview_charts(filtered):
 
     fig4 = px.bar(
         gender_counts,
-
         x="member_gender",
-
         y="count",
-
         title="Users by Gender",
-
         color="member_gender",
-
         color_discrete_sequence=[
             GREEN_THEME["primary"],
             GREEN_THEME["secondary"],
@@ -167,16 +117,9 @@ def create_overview_charts(filtered):
 
     fig4 = style_figure(
         fig4,
-
         x_title="Gender",
-
         y_title="Number of Users",
     )
-
-
-    # =====================================================
-    # Return
-    # =====================================================
 
     return (
         fig1,

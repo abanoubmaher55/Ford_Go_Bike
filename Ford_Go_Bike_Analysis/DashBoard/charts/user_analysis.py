@@ -3,40 +3,23 @@ import plotly.express as px
 from components.cards import style_figure
 from components.colors import COLORS
 
-
-# =========================================================
-# User Analysis Charts
-# =========================================================
-
 def create_user_charts(filtered):
-
-    # =====================================================
-    # Graph 7 - User Type
-    # =====================================================
-
     fig7 = px.pie(
         filtered,
-
         names="user_type",
-
         title="User Type Distribution",
-
         hole=0.45,
-
         color_discrete_sequence=[
             COLORS["primary"],
             COLORS["secondary"],
             COLORS["dark"],
-            COLORS["bar_alt"],
+            COLORS["dark"],
         ],
     )
 
     fig7.update_traces(
-
         textposition="inside",
-
         textinfo="percent",
-
         marker=dict(
             line=dict(
                 color=COLORS["card"],
@@ -47,7 +30,6 @@ def create_user_charts(filtered):
 
     fig7.update_layout(
         showlegend=True,
-
         legend=dict(
             font=dict(
                 color=COLORS["text"]
@@ -57,34 +39,22 @@ def create_user_charts(filtered):
 
     fig7 = style_figure(fig7)
 
-
-    # =====================================================
-    # Graph 8 - Gender
-    # =====================================================
-
     fig8 = px.pie(
         filtered,
-
         names="member_gender",
-
         title="Gender Distribution",
-
         hole=0.45,
-
         color_discrete_sequence=[
             COLORS["primary"],
             COLORS["secondary"],
             COLORS["dark"],
-            COLORS["bar_alt"],
+            COLORS["dark"],
         ],
     )
 
     fig8.update_traces(
-
         textposition="inside",
-
         textinfo="percent",
-
         marker=dict(
             line=dict(
                 color=COLORS["card"],
@@ -95,7 +65,6 @@ def create_user_charts(filtered):
 
     fig8.update_layout(
         showlegend=True,
-
         legend=dict(
             font=dict(
                 color=COLORS["text"]
@@ -104,11 +73,6 @@ def create_user_charts(filtered):
     )
 
     fig8 = style_figure(fig8)
-
-
-    # =====================================================
-    # Graph 9 - Age Groups
-    # =====================================================
 
     age_counts = (
         filtered["age_group"]
@@ -123,41 +87,26 @@ def create_user_charts(filtered):
 
     fig9 = px.bar(
         age_counts,
-
         x="age_group",
-
         y="count",
-
         title="Users by Age Group",
-
         color_discrete_sequence=[
-            COLORS["bar"]
+            COLORS["dark"]
         ],
     )
 
     fig9.update_traces(
-
-        marker_color=COLORS["bar"],
-
+        marker_color=COLORS["dark"],
         marker_line_color=COLORS["dark"],
-
         marker_line_width=0.5,
-
         opacity=0.9,
     )
 
     fig9 = style_figure(
         fig9,
-
         x_title="Age Group",
-
         y_title="Number of Users"
     )
-
-
-    # =====================================================
-    # Return
-    # =====================================================
 
     return (
         fig7,
