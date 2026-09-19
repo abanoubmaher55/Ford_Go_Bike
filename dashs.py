@@ -5,8 +5,8 @@ from dash import Dash, dcc, html, Input, Output
 
 
 
-df = pd.read_csv("Ford_Go_Bike\Ford_Go_Bike_Analysis\Part1-DataBase (Omar)\cleaned_data.csv")
-df_time = pd.read_csv("Ford_Go_Bike\Ford_Go_Bike_Analysis\Part1-DataBase (Omar)\dim_time.csv")
+df = pd.read_csv(r"Ford_Go_Bike_Analysis\Part1-DataBase (Omar)\cleaned_data.csv")
+df_time = pd.read_csv(r"Ford_Go_Bike_Analysis\Part1-DataBase (Omar)\cleaned_data.csv")
 
 df["start_time"] = pd.to_datetime(df["start_time"])
 
@@ -15,22 +15,22 @@ num_col = df.select_dtypes(include="number").columns
 app = Dash(__name__)
 
 COLORS = {
-    "background": "#F7FAF7",
-    "primary": "#2E7D32",
-    "secondary": "#43A047",
-    "accent": "#66BB6A",
-    "light": "#E8F5E9",
-    "dark": "#1B5E20",
+    "background": "#8ECAE6",
+    "primary": "#146C7A",
+    "secondary": "#2A9D8F",
+    "accent": "#8ECAE6",
+    "light": "#8ECAE6",
+    "dark": "#0D3B4C",
     "text": "#263238",
     "white": "#FFFFFF",
 }
 
 GREEN_THEME = {
-    "dark": "#1B5E20",
-    "primary": "#2E7D32",
-    "secondary": "#43A047",
-    "light": "#66BB6A",
-    "very_light": "#E8F5E9",
+    "dark": "#0D3B4C",
+    "primary": "#146C7A",
+    "secondary": "#2A9D8F",
+    "light": "#8ECAE6",
+    "very_light": "#8ECAE6",
 }
 
 FONT_FAMILY = "Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
@@ -250,7 +250,7 @@ app.layout = html.Div([
             ),
         ],
         style={
-            "backgroundColor": "#F7FAF7",
+            "backgroundColor": COLORS["background"],
             "minHeight": "100vh",
             "padding": "30px",
             "display": "flex",
@@ -305,21 +305,16 @@ def style_figure(fig, x_title=None, y_title=None):
     return fig
 
 
-
 def filter_dataframe(user_types, genders, age_groups, days):
+
+    if not user_types or not genders or not age_groups or not days:
+        return df.iloc[0:0]
+
     data = df.copy()
-
-    if user_types:
-        data = data[data["user_type"].isin(user_types)]
-
-    if genders:
-        data = data[data["member_gender"].isin(genders)]
-
-    if age_groups:
-        data = data[data["age_group"].isin(age_groups)]
-
-    if days:
-        data = data[data["day_of_week"].isin(days)]
+    data = data[data["user_type"].isin(user_types)]
+    data = data[data["member_gender"].isin(genders)]
+    data = data[data["age_group"].isin(age_groups)]
+    data = data[data["day_of_week"].isin(days)]
 
     return data
 
