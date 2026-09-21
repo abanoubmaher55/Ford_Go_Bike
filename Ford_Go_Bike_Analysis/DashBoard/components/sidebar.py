@@ -12,7 +12,9 @@ CARD_STYLE = {
     "boxSizing": "border-box",
 }
 
+
 def side_bar(df):
+
     USER_TYPE_OPTIONS = sorted(
         df["user_type"].dropna().unique().tolist()
     )
@@ -28,6 +30,13 @@ def side_bar(df):
     DAYS = sorted(
         df["day_of_week"].dropna().unique().tolist()
     )
+
+    share = sorted(
+        df["bike_share_for_all_trip"].dropna().unique().tolist()
+    )
+
+    min_date = df["start_time"].min().date()
+    max_date = df["start_time"].max().date()
 
     duration_minutes = df["duration_sec"] / 60
 
@@ -49,6 +58,28 @@ def side_bar(df):
                     "letterSpacing": "0.3px",
                 },
             ),
+
+            html.Label(
+                "Date Range",
+                style={
+                    "fontWeight": "600",
+                    "color": COLORS["text"],
+                    "marginBottom": "10px",
+                    "marginTop": "20px",
+                    "display": "block",
+                },
+            ),
+            dcc.DatePickerRange(
+                id="date-range-filter",
+                min_date_allowed=min_date,
+                max_date_allowed=max_date,
+                start_date=min_date,
+                end_date=max_date,
+                display_format="DD/MM/YYYY",
+                start_date_placeholder_text="From",
+                end_date_placeholder_text="To",
+                style={"marginBottom": "10px"}
+            ),
             html.Label(
                 "User Type",
                 style={
@@ -58,10 +89,12 @@ def side_bar(df):
                     "display": "block",
                 },
             ),
+
             build_dropdown(
                 "user-type-filter",
                 USER_TYPE_OPTIONS,
             ),
+
             html.Label(
                 "Gender",
                 style={
@@ -72,10 +105,12 @@ def side_bar(df):
                     "display": "block",
                 },
             ),
+
             build_dropdown(
                 "gender-filter",
                 GENDER_OPTIONS,
             ),
+
             html.Label(
                 "Age Group",
                 style={
@@ -86,10 +121,12 @@ def side_bar(df):
                     "display": "block",
                 },
             ),
+
             build_dropdown(
                 "age-group-filter",
                 AGE_GROUP_OPTIONS,
             ),
+
             html.Label(
                 "Day of Week",
                 style={
@@ -100,10 +137,27 @@ def side_bar(df):
                     "display": "block",
                 },
             ),
+
             build_dropdown(
                 "day-filter",
                 DAYS,
             ),
+            html.Label(
+                "Bike Share",
+                style={
+                    "fontWeight": "600",
+                    "color": COLORS["text"],
+                    "marginBottom": "8px",
+                    "marginTop": "16px",
+                    "display": "block",
+                },
+            ),
+
+            build_dropdown(
+                "Bike-share",
+                share,
+            ),
+
             html.Label(
                 "Trip Duration (Minutes)",
                 style={
@@ -114,12 +168,13 @@ def side_bar(df):
                     "display": "block",
                 },
             ),
+
             dcc.RangeSlider(
                 id="trip-duration-filter",
                 min=0,
                 max=max_duration,
                 step=1,
-                value=[0, max_duration],
+                value=[0, 60],
                 tooltip={
                     "placement": "bottom",
                     "always_visible": True,
@@ -131,6 +186,7 @@ def side_bar(df):
                 updatemode="mouseup",
                 className="custom-slider",
             ),
+
             html.Label(
                 "Top Stations",
                 style={
@@ -141,12 +197,13 @@ def side_bar(df):
                     "display": "block",
                 },
             ),
+
             dcc.Slider(
                 id="top-station-filter",
                 min=1,
                 max=50,
                 step=1,
-                value=10,
+                value=50,
                 marks={
                     1: "1",
                     10: "10",

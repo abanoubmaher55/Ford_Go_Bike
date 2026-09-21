@@ -1,6 +1,6 @@
 from dash import dcc, html
 from components.cards import graph_card
-from components.colors import COLORS
+from components.colors import COLORS , GREEN_THEME
 from components.kpi import kpi_row
 
 def build_tabs():
@@ -42,8 +42,8 @@ def build_tabs():
                 },
                 selected_style={
                     "backgroundColor": COLORS["card"],
-                    "color": COLORS["tab_active"],
-                    "borderTop": f"3px solid {COLORS['tab_active']}",
+                    "color": GREEN_THEME['primary'],
+                    "borderTop": f"3px solid {GREEN_THEME['primary']}",
                     "borderLeft": "none",
                     "borderRight": "none",
                     "borderBottom": "none",
@@ -59,6 +59,7 @@ def build_tabs():
                         [
                             graph_card("gr5"),
                             graph_card("gr6"),
+                            graph_card("gr13"),
                         ],
                         style={
                             "display": "grid",
@@ -77,8 +78,8 @@ def build_tabs():
                 },
                 selected_style={
                     "backgroundColor": COLORS["card"],
-                    "color": COLORS["tab_active"],
-                    "borderTop": f"3px solid {COLORS['tab_active']}",
+                    "color": GREEN_THEME['primary'],
+                    "borderTop": f"3px solid {GREEN_THEME['primary']}",
                     "borderLeft": "none",
                     "borderRight": "none",
                     "borderBottom": "none",
@@ -95,6 +96,7 @@ def build_tabs():
                             graph_card("gr7"),
                             graph_card("gr8"),
                             graph_card("gr9"),
+                            graph_card("gr14"),
                         ],
                         style={
                             "display": "grid",
@@ -113,8 +115,8 @@ def build_tabs():
                 },
                 selected_style={
                     "backgroundColor": COLORS["card"],
-                    "color": COLORS["tab_active"],
-                    "borderTop": f"3px solid {COLORS['tab_active']}",
+                    "color": GREEN_THEME['primary'],
+                    "borderTop": f"3px solid {GREEN_THEME['primary']}",
                     "borderLeft": "none",
                     "borderRight": "none",
                     "borderBottom": "none",
@@ -190,8 +192,8 @@ def build_tabs():
                 },
                 selected_style={
                     "backgroundColor": COLORS["card"],
-                    "color": COLORS["tab_active"],
-                    "borderTop": f"3px solid {COLORS['tab_active']}",
+                    "color": GREEN_THEME['primary'],
+                    "borderTop": f"3px solid {GREEN_THEME['primary']}",
                     "borderLeft": "none",
                     "borderRight": "none",
                     "borderBottom": "none",

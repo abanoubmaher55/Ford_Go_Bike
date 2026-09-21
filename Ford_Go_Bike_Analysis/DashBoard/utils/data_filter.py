@@ -4,11 +4,12 @@ def filter_dataframe(
     genders,
     age_groups,
     days,
+    share,
     duration_range=None,
 ):
     data = df.copy()
 
-    if not user_types or not genders or not age_groups or not days:
+    if not user_types or not genders or not age_groups or not days or not share:
         return df.iloc[0:0]
 
     if user_types:
@@ -29,6 +30,10 @@ def filter_dataframe(
     if days:
         data = data[
             data["day_of_week"].isin(days)
+        ]
+    if share:
+        data = data[
+            data["bike_share_for_all_trip"].isin(share)
         ]
 
     if duration_range:

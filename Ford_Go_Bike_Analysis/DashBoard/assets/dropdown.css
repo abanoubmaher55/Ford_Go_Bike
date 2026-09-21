@@ -1,0 +1,206 @@
+.custom-dropdown {
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   Dropdown Main Container
+   ========================= */
+
+.custom-dropdown>div {
+    min-height: 44px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #dde2e8 !important;
+    border-radius: 10px !important;
+    box-shadow:
+        0 1px 3px rgba(16, 24, 40, 0.06),
+        0 1px 2px rgba(16, 24, 40, 0.04) !important;
+}
+
+
+/* =========================
+   Hover
+   ========================= */
+
+.custom-dropdown>div:hover {
+    border-color: #b7c0ca !important;
+}
+
+
+/* =========================
+   Focus
+   ========================= */
+
+.custom-dropdown>div:focus-within {
+    border-color: #0D5C63 !important;
+    box-shadow:
+        0 0 0 3px rgba(79, 124, 255, 0.15) !important;
+}
+
+
+/* =========================
+   Dropdown Options
+   ========================= */
+
+.dash-options-list-option {
+    display: flex !important;
+    align-items: center !important;
+
+    min-height: 38px !important;
+
+    padding: 9px 12px !important;
+    margin: 2px 4px !important;
+
+    background-color: transparent !important;
+
+    border-radius: 6px !important;
+
+    color: #344054 !important;
+
+    font-size: 13.5px !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background-color 0.12s ease,
+        color 0.12s ease;
+}
+
+
+/* =========================
+   Option Hover
+   ========================= */
+
+.dash-options-list-option:hover {
+    background-color: #f2f6ff !important;
+    color: #1d2939 !important;
+}
+
+
+/* =========================
+   Selected Option
+   ========================= */
+
+.dash-options-list-option.selected {
+    background-color: #eaf0ff !important;
+    color: #0D5C63 !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================
+   Selected + Hover
+   ========================= */
+
+.dash-options-list-option.selected:hover {
+    background-color: #e1e9ff !important;
+}
+
+
+/* =========================
+   Checkbox Wrapper
+   ========================= */
+
+.dash-options-list-option-wrapper {
+    display: flex !important;
+    align-items: center !important;
+
+    margin-right: 9px !important;
+}
+
+
+/* =========================
+   Checkbox
+   ========================= */
+
+.dash-options-list-option-checkbox {
+    width: 16px !important;
+    height: 16px !important;
+
+    margin: 0 !important;
+
+    accent-color: #0D5C63, !important;
+
+    cursor: pointer !important;
+}
+
+
+/* =========================
+   Text
+   ========================= */
+
+.dash-options-list-option-text {
+    color: inherit !important;
+    font-size: 13.5px !important;
+}
+
+
+/* =========================
+   Placeholder
+   ========================= */
+
+.custom-dropdown [class*="placeholder"] {
+    color: #98a2b3 !important;
+    font-size: 13.5px !important;
+}
+
+
+/* =========================
+   Input
+   ========================= */
+
+.custom-dropdown input {
+    color: #1d2939 !important;
+    font-size: 13.5px !important;
+}
+
+
+/* =========================
+   Dropdown Menu
+   ========================= */
+
+.dash-options-list {
+    background-color: #ffffff !important;
+
+    border: 1px solid #e4e7ec !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 8px 20px rgba(16, 24, 40, 0.12) !important;
+
+    padding: 4px !important;
+}
+
+
+/* =========================
+   Disabled
+   ========================= */
+
+.dash-options-list-option[aria-disabled="true"] {
+    color: #d0d5dd !important;
+    cursor: not-allowed !important;
+}
+
+
+/* =========================
+   Scrollbar
+   ========================= */
+
+.dash-options-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dash-options-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dash-options-list::-webkit-scrollbar-thumb {
+    background: #d0d5dd;
+    border-radius: 10px;
+}
+
+.dash-options-list::-webkit-scrollbar-thumb:hover {
+    background: #98a2b3;
+}
+

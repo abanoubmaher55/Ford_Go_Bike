@@ -85,7 +85,32 @@ def create_time_charts(filtered):
         y_title="Number of Trips"
     )
 
+
+
+
+    fig13 = px.pie(
+        filtered[filtered["day_of_week"].isin(["Saturday", "Sunday"])]
+        .value_counts("day_of_week")
+        .reindex(["Saturday", "Sunday"], fill_value=0)
+        .reset_index(name="count"),
+        
+        names="day_of_week",
+        hole=0.4,
+        title="Number of Trips by Weekend Day",
+
+        color_discrete_sequence=[
+            GREEN_THEME["primary"]
+        ],
+    )
+
+    fig13.update_layout(
+        xaxis_title="Day of Week",
+        yaxis_title="Number of Trips",
+    )
+
+
     return (
         fig5,
-        fig6
+        fig6,
+        fig13
     )

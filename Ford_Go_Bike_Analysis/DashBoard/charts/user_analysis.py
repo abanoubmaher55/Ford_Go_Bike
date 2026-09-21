@@ -108,8 +108,32 @@ def create_user_charts(filtered):
         y_title="Number of Users"
     )
 
+    fig14 = px.histogram(
+        filtered,
+        x="users' age",
+        color="user_type",
+        opacity=0.6,
+        barmode="overlay",
+        title="Age Distribution by User Type"
+    )
+
+    fig14 = style_figure(
+        fig14,
+        x_title="Age",
+        y_title="Number of Users"
+    )
+
+    fig14.update_traces(
+        marker_color=COLORS["dark"],
+        marker_line_color=COLORS["dark"],
+        marker_line_width=0.5,
+        opacity=0.9,
+    )
+
+    
     return (
         fig7,
         fig8,
-        fig9
+        fig9,
+        fig14
     )

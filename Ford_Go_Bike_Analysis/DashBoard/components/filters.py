@@ -1,5 +1,7 @@
 from dash import dcc
+
 from components.colors import COLORS
+
 
 def build_dropdown(
     component_id,
@@ -8,6 +10,7 @@ def build_dropdown(
 ):
     return dcc.Dropdown(
         id=component_id,
+        className="custom-dropdown",
         options=[
             {
                 "label": opt,
@@ -20,8 +23,8 @@ def build_dropdown(
         placeholder="Select...",
         style={
             "marginBottom": "18px",
-            "color": COLORS["text"],
-            "fontFamily": "Arial, sans-serif",
-            "fontSize": "13px",
+            "--Dash-Fill-Interactive-Strong": COLORS["primary"],
+            "--Dash-Text-Primary": COLORS["text"],
+            "--Dash-Stroke-Strong": COLORS.get("border", "#d7dce1"),
         },
     )

@@ -89,9 +89,11 @@ app.layout = html.Div(
     Output("gr4", "figure"),
     Output("gr5", "figure"),
     Output("gr6", "figure"),
+    Output("gr13", "figure"),
     Output("gr7", "figure"),
     Output("gr8", "figure"),
     Output("gr9", "figure"),
+    Output("gr14", "figure"),
     Output("gr10", "figure"),
     Output("gr11", "figure"),
     Output("gr12", "figure"),
@@ -100,14 +102,16 @@ app.layout = html.Div(
     Input("gender-filter", "value"),
     Input("age-group-filter", "value"),
     Input("day-filter", "value"),
+    Input("Bike-share", "value"),
     Input("trip-duration-filter", "value"),
     Input("top-station-filter", "value"),
+
 )
 def update_dashboard(
     user_types,
     genders,
     age_groups,
-    days,
+    days,share,
     duration_range,
     top_station_n,
 ):
@@ -116,7 +120,7 @@ def update_dashboard(
         user_types,
         genders,
         age_groups,
-        days,
+        days,share,
         duration_range,
     )
 
