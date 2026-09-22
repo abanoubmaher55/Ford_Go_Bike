@@ -1,6 +1,5 @@
-
 import pandas as pd
- 
+import os
 from dash import Dash, html, Input, Output, State
  
 from components.colors import COLORS
@@ -39,11 +38,13 @@ if "duration_min" not in df.columns:
         ) / 60
     )
  
+
 app = Dash(
     __name__,
     suppress_callback_exceptions=True,
-    assets_folder="assets"
-    )
+    assets_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets"),
+    assets_url_path="assets",
+)
  
 app.title = "Ford GoBike Analytics"
  
@@ -104,16 +105,16 @@ def toggle_filters(n_clicks, current_style):
     Output("kpi-active-stations", "children"),
     Output("kpi-busiest-station", "children"),
     Output("gr1", "figure"),
-    Output("gr2", "figure"),
-    Output("gr3", "figure"),
-    Output("gr4", "figure"),
     Output("gr5", "figure"),
     Output("gr6", "figure"),
     Output("gr13", "figure"),
+    Output("gr15", "figure"),
     Output("gr7", "figure"),
     Output("gr8", "figure"),
     Output("gr9", "figure"),
     Output("gr14", "figure"),
+    Output("gr17", "figure"),
+    Output("gr18", "figure"),
     Output("gr10", "figure"),
     Output("gr11", "figure"),
     Output("gr12", "figure"),
@@ -174,8 +175,8 @@ def update_dashboard(
         else 10
     ),
     )
-    
-
+ 
+ 
     total_trips = len(filtered)
  
     if total_trips == 0:
@@ -184,11 +185,11 @@ def update_dashboard(
         busiest_station = "N/A"
         active_stations = "0"
     else:
-        avg_duration = (
-            int(filtered["duration_min"].mean())
-            if "duration_min" in filtered.columns
-            else None
-        )
+        if "duration_min" in filtered.columns:
+            mean_duration = filtered["duration_min"].mean()
+            avg_duration = int(mean_duration) if pd.notna(mean_duration) else "N/A"
+        else:
+            avg_duration = "N/A"
  
         unique_bikes_text = (
             str(filtered["bike_id"].nunique())

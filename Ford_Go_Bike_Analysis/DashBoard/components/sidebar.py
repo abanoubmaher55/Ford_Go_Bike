@@ -44,7 +44,7 @@ def side_bar(df):
         duration_minutes.quantile(0.99)
     )
 
-    max_duration = max(max_duration, 10)
+    max_duration = 60
 
     return html.Div(
         [
@@ -151,6 +151,7 @@ def side_bar(df):
                     "marginBottom": "8px",
                     "marginTop": "16px",
                     "display": "block",
+                    
                 },
             ),
 

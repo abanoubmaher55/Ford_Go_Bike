@@ -6,7 +6,7 @@ COLORS = {
     "card": "#FCFCFD",
     "cards": "#FCFCFD",
     "sidebar": "#FCFCFD",
-    "tab_active": "#6C5CE7",
+    "tab_active": "#1F9E89",
     "tab_text": "#1B2A41",
     "text": "#1B2A41",
     "light": "#FCFCFD",

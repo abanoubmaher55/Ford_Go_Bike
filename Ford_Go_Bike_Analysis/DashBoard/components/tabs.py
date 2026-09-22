@@ -2,7 +2,7 @@ from dash import dcc, html
 from components.cards import graph_card
 from components.colors import COLORS , GREEN_THEME
 from components.kpi import kpi_row
-
+ 
 def build_tabs():
     return dcc.Tabs(
         id="tabs",
@@ -21,13 +21,10 @@ def build_tabs():
                     html.Div(
                         [
                             graph_card("gr1"),
-                            graph_card("gr2"),
-                            graph_card("gr3"),
-                            graph_card("gr4"),
                         ],
                         style={
                             "display": "grid",
-                            "gridTemplateColumns": "1fr 1fr",
+                            "gridTemplateColumns": "1fr",
                             "gap": "20px",
                             "paddingTop": "20px",
                         },
@@ -60,6 +57,7 @@ def build_tabs():
                             graph_card("gr5"),
                             graph_card("gr6"),
                             graph_card("gr13"),
+                            graph_card("gr15"),
                         ],
                         style={
                             "display": "grid",
@@ -97,6 +95,9 @@ def build_tabs():
                             graph_card("gr8"),
                             graph_card("gr9"),
                             graph_card("gr14"),
+                            graph_card("gr17"),
+                            graph_card("gr18"),
+                            
                         ],
                         style={
                             "display": "grid",
@@ -211,3 +212,4 @@ def build_tabs():
             "overflow": "hidden",
         },
     )
+ 

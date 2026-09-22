@@ -7,12 +7,12 @@
    Dropdown Main Container
    ========================= */
 
-.custom-dropdown>div {
+.custom-dropdown > div {
     min-height: 44px !important;
     background-color: #ffffff !important;
     border: 1px solid #dde2e8 !important;
     border-radius: 10px !important;
-    box-shadow:#1F9E89 !important;
+    box-shadow: 0 1px 3px rgba(31, 158, 137, 0.15) !important;
 }
 
 
@@ -20,7 +20,7 @@
    Hover
    ========================= */
 
-.custom-dropdown>div:hover {
+.custom-dropdown > div:hover {
     border-color: #b7c0ca !important;
 }
 
@@ -29,9 +29,9 @@
    Focus
    ========================= */
 
-.custom-dropdown>div:focus-within {
+.custom-dropdown > div:focus-within {
     border-color: #0D5C63 !important;
-    box-shadow: #1F9E89 !important;
+    box-shadow: 0 0 0 3px rgba(31, 158, 137, 0.2) !important;
 }
 
 
@@ -70,7 +70,7 @@
 
 .dash-options-list-option:hover {
     background-color: #f2f6ff !important;
-    color: #1F9E89!important;
+    color: #1F9E89 !important;
 }
 
 
@@ -163,7 +163,7 @@
 
     border-radius: 10px !important;
 
-    box-shadow:1F9E89 !important;
+    box-shadow: 0 4px 15px rgba(31, 158, 137, 0.15) !important;
 
     padding: 4px !important;
 }
@@ -200,3 +200,84 @@
     background: #98a2b3;
 }
 
+
+/* =========================================================
+   Custom Slider
+   Trip Duration / Top Stations
+   ========================================================= */
+
+
+/* الخط المحدد */
+
+.custom-slider .rc-slider-track {
+    background-color: #1F9E89 !important;
+    height: 6px !important;
+}
+
+
+/* الخط غير المحدد */
+
+.custom-slider .rc-slider-rail {
+    background-color: #dde2e8 !important;
+    height: 6px !important;
+}
+
+
+/* الدوائر */
+
+.custom-slider .rc-slider-handle {
+    border: 2px solid #1F9E89 !important;
+    background-color: #1F9E89 !important;
+    opacity: 1 !important;
+
+    width: 18px !important;
+    height: 18px !important;
+
+    margin-top: -6px !important;
+
+    box-shadow: none !important;
+}
+
+
+/* الدائرة عند Hover */
+
+.custom-slider .rc-slider-handle:hover {
+    border-color: #1F9E89 !important;
+    background-color: #1F9E89 !important;
+
+    box-shadow: 0 0 0 5px rgba(31, 158, 137, 0.20) !important;
+}
+
+
+/* الدائرة عند الضغط والسحب */
+
+.custom-slider .rc-slider-handle:active,
+.custom-slider .rc-slider-handle-dragging {
+    border-color: #1F9E89 !important;
+    background-color: #1F9E89 !important;
+
+    box-shadow: 0 0 0 5px rgba(31, 158, 137, 0.20) !important;
+}
+
+
+/* أرقام الـ Marks */
+
+.custom-slider .rc-slider-mark-text {
+    color: #667085 !important;
+    font-size: 12px !important;
+}
+
+
+/* Tooltip */
+
+.custom-slider .rc-slider-tooltip-inner {
+    background-color: #1F9E89 !important;
+    border-radius: 6px !important;
+}
+
+
+/* Tooltip Arrow */
+
+.custom-slider .rc-slider-tooltip-arrow {
+    border-top-color: #1F9E89 !important;
+}
