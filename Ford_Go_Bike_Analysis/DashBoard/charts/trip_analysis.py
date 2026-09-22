@@ -1,9 +1,11 @@
+
+import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-
+ 
 from components.cards import style_figure
 from components.colors import COLORS, GREEN_THEME
-
+ 
 def create_trip_charts(filtered):
     departures = (
         filtered
@@ -16,7 +18,7 @@ def create_trip_charts(filtered):
             }
         )
     )
-
+ 
     arrivals = (
         filtered
         .groupby("end_station_name")
@@ -28,25 +30,25 @@ def create_trip_charts(filtered):
             }
         )
     )
-
+ 
     station_flow = departures.merge(
         arrivals,
         on="station",
         how="outer"
     ).fillna(0)
-
+ 
     station_flow["total"] = (
         station_flow["Departures"]
         + station_flow["Arrivals"]
     )
-
+ 
     station_flow = station_flow.sort_values(
         "total",
         ascending=True
     )
-
+ 
     fig_station = go.Figure()
-
+ 
     fig_station.add_trace(
         go.Bar(
             y=station_flow["station"],
@@ -61,7 +63,7 @@ def create_trip_charts(filtered):
             customdata=station_flow["Departures"],
         )
     )
-
+ 
     fig_station.add_trace(
         go.Bar(
             y=station_flow["station"],
@@ -75,7 +77,7 @@ def create_trip_charts(filtered):
             ),
         )
     )
-
+ 
     fig_station.update_layout(
         title="Station Flow",
         barmode="relative",
@@ -89,37 +91,37 @@ def create_trip_charts(filtered):
             x=1,
         ),
     )
-
+ 
     fig_station = style_figure(
         fig_station,
         x_title="Trips",
         y_title="Station",
     )
-
+ 
     fig_station.update_layout(
         showlegend=True
     )
-
+ 
     route_data = filtered.copy()
-
+ 
     route_data["start_station_name"] = (
         route_data["start_station_name"]
         .fillna("Unknown")
         .astype(str)
     )
-
+ 
     route_data["end_station_name"] = (
         route_data["end_station_name"]
         .fillna("Unknown")
         .astype(str)
     )
-
+ 
     route_data["route"] = (
         route_data["start_station_name"]
         + " → "
         + route_data["end_station_name"]
     )
-
+ 
     route_share = (
         route_data
         .groupby("route")
@@ -130,9 +132,9 @@ def create_trip_charts(filtered):
             ascending=False
         )
     )
-
+ 
     top_routes = route_share.head(10)
-
+ 
     fig_route = px.pie(
         top_routes,
         names="route",
@@ -147,7 +149,7 @@ def create_trip_charts(filtered):
             GREEN_THEME["accent"],
         ],
     )
-
+ 
     fig_route.update_traces(
         textposition="inside",
         textinfo="percent",
@@ -158,9 +160,9 @@ def create_trip_charts(filtered):
             )
         ),
     )
-
+ 
     fig_route = style_figure(fig_route)
-
+ 
     fig_route.update_layout(
         showlegend=True,
         legend=dict(
@@ -169,9 +171,9 @@ def create_trip_charts(filtered):
             )
         ),
     )
-
+ 
     duration_data = filtered.copy()
-
+ 
     duration_data["duration_sec"] = (
         __import__("pandas")
         .to_numeric(
@@ -179,15 +181,15 @@ def create_trip_charts(filtered):
             errors="coerce"
         )
     )
-
+ 
     duration_data = duration_data.dropna(
         subset=["duration_sec"]
     )
-
+ 
     duration_data["duration_min"] = (
         duration_data["duration_sec"] / 60
     )
-
+ 
     fig_duration = px.histogram(
         duration_data,
         x="duration_min",
@@ -197,19 +199,19 @@ def create_trip_charts(filtered):
             GREEN_THEME["secondary"]
         ],
     )
-
+ 
     fig_duration.update_traces(
         marker_line_color=GREEN_THEME["dark"],
         marker_line_width=0.5,
         opacity=0.9,
     )
-
+ 
     if not duration_data.empty:
         median_duration = (
             duration_data["duration_min"]
             .median()
         )
-
+ 
         fig_duration.add_vline(
             x=median_duration,
             line_dash="dash",
@@ -220,26 +222,26 @@ def create_trip_charts(filtered):
             ),
             annotation_position="top",
         )
-
+ 
     fig_duration = style_figure(
         fig_duration,
         x_title="Duration (Minutes)",
         y_title="Count",
     )
-
+ 
     return (
         fig_station,
         fig_route,
         fig_duration,
     )
-
+ 
 def create_stations_map(
     filtered,
     top_n=10
 ):
     if filtered.empty:
         fig = go.Figure()
-
+ 
         fig.update_layout(
             paper_bgcolor=COLORS["card"],
             plot_bgcolor=COLORS["card"],
@@ -264,9 +266,9 @@ def create_stations_map(
                 )
             ],
         )
-
+ 
         return fig
-
+ 
     station_data = (
         filtered
         .groupby(
@@ -284,17 +286,17 @@ def create_stations_map(
             }
         )
     )
-
+ 
     station_data = station_data.dropna(
         subset=[
             "start_station_latitude",
             "start_station_longitude",
         ]
     )
-
+ 
     if station_data.empty:
         fig = go.Figure()
-
+ 
         fig.update_layout(
             paper_bgcolor=COLORS["card"],
             plot_bgcolor=COLORS["card"],
@@ -319,16 +321,16 @@ def create_stations_map(
                 )
             ],
         )
-
+ 
         return fig
-
+ 
     try:
         top_n = int(top_n)
     except (TypeError, ValueError):
         top_n = 10
-
+ 
     top_n = max(1, top_n)
-
+ 
     station_data = (
         station_data
         .sort_values(
@@ -337,7 +339,7 @@ def create_stations_map(
         )
         .head(top_n)
     )
-
+ 
     fig = px.scatter_map(
         station_data,
         lat="start_station_latitude",
@@ -363,7 +365,7 @@ def create_stations_map(
         },
         height=500,
     )
-
+ 
     fig.update_layout(
         margin=dict(
             l=0,
@@ -374,6 +376,123 @@ def create_stations_map(
         coloraxis_showscale=False,
         paper_bgcolor=COLORS["card"],
         plot_bgcolor=COLORS["card"],
+    )
+ 
+    return fig
+ 
+ 
+def _make_arc(lat1, lon1, lat2, lon2, n_points=30, curvature=0.15):
+    
+    mid_lat = (lat1 + lat2) / 2
+    mid_lon = (lon1 + lon2) / 2
+ 
+    dx = lon2 - lon1
+    dy = lat2 - lat1
+ 
+    offset_lat = mid_lat - dy * curvature
+    offset_lon = mid_lon + dx * curvature
+ 
+    t = np.linspace(0, 1, n_points)
+ 
+    curve_lat = (
+        (1 - t) ** 2 * lat1
+        + 2 * (1 - t) * t * offset_lat
+        + t ** 2 * lat2
+    )
+    curve_lon = (
+        (1 - t) ** 2 * lon1
+        + 2 * (1 - t) * t * offset_lon
+        + t ** 2 * lon2
+    )
+ 
+    return curve_lat, curve_lon
+ 
+ 
+def create_route_flow_map(filtered, top_n=10):
+    """
+    Same as create_stations_map, resized, with colored arcs added
+    between stations, restricted to stations shown as circles.
+    """
+    fig = create_stations_map(filtered, top_n=top_n)
+
+    route_cols = [
+        "start_station_name",
+        "start_station_latitude",
+        "start_station_longitude",
+        "end_station_name",
+        "end_station_latitude",
+        "end_station_longitude",
+    ]
+
+    if not filtered.empty and all(c in filtered.columns for c in route_cols):
+        top_station_names = set(
+            filtered
+            .groupby("start_station_name")
+            .size()
+            .reset_index(name="trip_count")
+            .sort_values("trip_count", ascending=False)
+            .head(top_n)["start_station_name"]
+        )
+
+        route_data = filtered.dropna(subset=route_cols).copy()
+
+        route_data = route_data[
+            route_data["start_station_name"].isin(top_station_names)
+            & route_data["end_station_name"].isin(top_station_names)
+        ]
+
+        if not route_data.empty:
+            route_summary = (
+                route_data
+                .groupby(route_cols, as_index=False)
+                .size()
+                .rename(columns={"size": "trip_count"})
+                .sort_values("trip_count", ascending=False)
+                .head(top_n)
+            )
+
+            palette = [
+                GREEN_THEME["primary"],
+                GREEN_THEME["secondary"],
+                GREEN_THEME["dark"],
+                GREEN_THEME["accent"],
+                GREEN_THEME["light"],
+            ]
+
+            for i, row in enumerate(route_summary.itertuples()):
+                curve_lat, curve_lon = _make_arc(
+                    row.start_station_latitude,
+                    row.start_station_longitude,
+                    row.end_station_latitude,
+                    row.end_station_longitude,
+                )
+
+                color = palette[i % len(palette)]
+
+                fig.add_trace(
+                    go.Scattermap(
+                        lat=curve_lat,
+                        lon=curve_lon,
+                        mode="lines",
+                        line=dict(width=2.5, color=color),
+                        opacity=0.85,
+                        hoverinfo="text",
+                        text=(
+                            f"{row.start_station_name} → "
+                            f"{row.end_station_name}<br>"
+                            f"Trips: {row.trip_count}"
+                        ),
+                        showlegend=False,
+                    )
+                )
+
+    fig.update_layout(
+        height=300,
+        margin=dict(l=0, r=0, t=30, b=0),
+        title=dict(
+            text="Route Flow Map",
+            font=dict(color=COLORS["dark"], size=15),
+        ),
     )
 
     return fig

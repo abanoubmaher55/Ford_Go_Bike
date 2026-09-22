@@ -9,44 +9,74 @@ def build_header():
         [
             html.Div(
                 [
-                    html.Span(
-                        "DATA ANALYTICS DASHBOARD",
+                    html.Button(
+                        "☰",
+                        id="filters-toggle-btn",
+                        n_clicks=0,
                         style={
-                            "backgroundColor": "rgba(255, 255, 255, 0.12)",
+                            "backgroundColor": "rgba(255, 255, 255, 0.15)",
                             "color": "#FFFFFF",
-                            "fontSize": "11px",
-                            "fontWeight": "700",
-                            "letterSpacing": "1.5px",
-                            "padding": "5px 12px",
-                            "borderRadius": "20px",
-                            "display": "inline-block",
-                            "marginBottom": "14px",
-                            "border": "1px solid rgba(255, 255, 255, 0.25)",
+                            "border": "1px solid rgba(255, 255, 255, 0.30)",
+                            "borderRadius": "10px",
+                            "width": "42px",
+                            "height": "42px",
+                            "fontSize": "18px",
+                            "cursor": "pointer",
+                            "marginRight": "18px",
+                            "flex": "0 0 auto",
+                            "display": "flex",
+                            "alignItems": "center",
+                            "justifyContent": "center",
                         },
                     ),
-                    html.H1(
-                        "Ford GoBike Analytics",
+                    html.Div(
+                        [
+                            html.Span(
+                                "DATA ANALYTICS DASHBOARD",
+                                style={
+                                    "backgroundColor": "rgba(255, 255, 255, 0.12)",
+                                    "color": "#FFFFFF",
+                                    "fontSize": "11px",
+                                    "fontWeight": "700",
+                                    "letterSpacing": "1.5px",
+                                    "padding": "5px 12px",
+                                    "borderRadius": "20px",
+                                    "display": "inline-block",
+                                    "marginBottom": "14px",
+                                    "border": "1px solid rgba(255, 255, 255, 0.25)",
+                                },
+                            ),
+                            html.H1(
+                                "🚲Ford GoBike Analytics",
+                                style={
+                                    "color": "#FFFFFF",
+                                    "fontFamily": FONT_FAMILY,
+                                    "fontSize": "36px",
+                                    "fontWeight": "700",
+                                    "margin": "0 0 8px 0",
+                                    "letterSpacing": "-0.5px",
+                                },
+                            ),
+                            html.P(
+                                "Explore trip behavior, rider demographics, and mobility patterns.",
+                                style={
+                                    "color": "#E0F4F1",
+                                    "fontFamily": FONT_FAMILY,
+                                    "fontSize": "14.5px",
+                                    "margin": "0",
+                                    "maxWidth": "480px",
+                                },
+                            ),
+                        ],
                         style={
-                            "color": "#FFFFFF",
-                            "fontFamily": FONT_FAMILY,
-                            "fontSize": "36px",
-                            "fontWeight": "700",
-                            "margin": "0 0 8px 0",
-                            "letterSpacing": "-0.5px",
-                        },
-                    ),
-                    html.P(
-                        "Explore trip behavior, rider demographics, and mobility patterns.",
-                        style={
-                            "color": "#E0F4F1",
-                            "fontFamily": FONT_FAMILY,
-                            "fontSize": "14.5px",
-                            "margin": "0",
-                            "maxWidth": "480px",
+                            "flex": "1 1 auto",
+                            "minWidth": "260px",
                         },
                     ),
                 ],
                 style={
+                    "display": "flex",
+                    "alignItems": "center",
                     "flex": "1 1 auto",
                     "minWidth": "260px",
                 },
@@ -55,20 +85,10 @@ def build_header():
                 [
                     html.Div(
                         [
-                            html.Span(
-                                "📅",
-                                style={
-                                    "fontSize": "13px",
-                                    "marginRight": "6px",
-                                },
-                            ),
+                            html.Span("📅", style={"fontSize": "13px", "marginRight": "6px"}),
                             html.Span(
                                 "2019 Trip Analysis",
-                                style={
-                                    "color": "#FFFFFF",
-                                    "fontSize": "13px",
-                                    "fontWeight": "600",
-                                },
+                                style={"color": "#FFFFFF", "fontSize": "13px", "fontWeight": "600"},
                             ),
                         ],
                         style={
@@ -83,21 +103,10 @@ def build_header():
                     ),
                     html.Div(
                         [
-                            html.Span(
-                                "⚡",
-                                style={
-                                    "fontSize": "13px",
-                                    "marginRight": "6px",
-                                    "color": "#FFFFFF",
-                                },
-                            ),
+                            html.Span("⚡", style={"fontSize": "13px", "marginRight": "6px", "color": "#FFFFFF"}),
                             html.Span(
                                 "Interactive Dashboard",
-                                style={
-                                    "color": "#FFFFFF",
-                                    "fontSize": "13px",
-                                    "fontWeight": "600",
-                                },
+                                style={"color": "#FFFFFF", "fontSize": "13px", "fontWeight": "600"},
                             ),
                         ],
                         style={

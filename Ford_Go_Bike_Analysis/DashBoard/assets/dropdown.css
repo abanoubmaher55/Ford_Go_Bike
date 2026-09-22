@@ -12,9 +12,7 @@
     background-color: #ffffff !important;
     border: 1px solid #dde2e8 !important;
     border-radius: 10px !important;
-    box-shadow:
-        0 1px 3px rgba(16, 24, 40, 0.06),
-        0 1px 2px rgba(16, 24, 40, 0.04) !important;
+    box-shadow:#1F9E89 !important;
 }
 
 
@@ -33,8 +31,7 @@
 
 .custom-dropdown>div:focus-within {
     border-color: #0D5C63 !important;
-    box-shadow:
-        0 0 0 3px rgba(79, 124, 255, 0.15) !important;
+    box-shadow: #1F9E89 !important;
 }
 
 
@@ -73,7 +70,7 @@
 
 .dash-options-list-option:hover {
     background-color: #f2f6ff !important;
-    color: #1d2939 !important;
+    color: #1F9E89!important;
 }
 
 
@@ -119,7 +116,7 @@
 
     margin: 0 !important;
 
-    accent-color: #0D5C63, !important;
+    accent-color: #0D5C63 !important;
 
     cursor: pointer !important;
 }
@@ -150,7 +147,7 @@
    ========================= */
 
 .custom-dropdown input {
-    color: #1d2939 !important;
+    color: #1F9E89 !important;
     font-size: 13.5px !important;
 }
 
@@ -166,8 +163,7 @@
 
     border-radius: 10px !important;
 
-    box-shadow:
-        0 8px 20px rgba(16, 24, 40, 0.12) !important;
+    box-shadow:1F9E89 !important;
 
     padding: 4px !important;
 }

@@ -174,6 +174,7 @@ def build_tabs():
                             graph_card("gr10"),
                             graph_card("gr11"),
                             graph_card("gr12"),
+                            graph_card("route-flow-map"),
                         ],
                         style={
                             "display": "grid",

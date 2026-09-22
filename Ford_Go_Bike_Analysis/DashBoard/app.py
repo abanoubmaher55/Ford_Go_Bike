@@ -1,34 +1,36 @@
+
 import pandas as pd
-
-from dash import Dash, html, Input, Output
-
+ 
+from dash import Dash, html, Input, Output, State
+ 
 from components.colors import COLORS
 from components.header import build_header
 from components.sidebar import side_bar
 from components.tabs import build_tabs
-
+ 
 from utils.data_filter import filter_dataframe
-
+ 
 from charts.overview import create_overview_charts
 from charts.time_analysis import create_time_charts
 from charts.user_analysis import create_user_charts
 from charts.trip_analysis import (
     create_trip_charts,
     create_stations_map,
+    create_route_flow_map,
 )
-
+ 
 df = pd.read_csv(
-    r"Ford_Go_Bike\Ford_Go_Bike_Analysis\Part1-DataBase (Omar)\cleaned_data.csv"
+    r"Ford_Go_Bike_Analysis\Part1-DataBase (Omar)\cleaned_data.csv"
 )
-
+ 
 df["start_time"] = pd.to_datetime(
     df["start_time"],
     errors="coerce"
 )
-
+ 
 if "start_hour" not in df.columns:
     df["start_hour"] = df["start_time"].dt.hour
-
+ 
 if "duration_min" not in df.columns:
     df["duration_min"] = (
         pd.to_numeric(
@@ -36,14 +38,15 @@ if "duration_min" not in df.columns:
             errors="coerce"
         ) / 60
     )
-
+ 
 app = Dash(
     __name__,
-    suppress_callback_exceptions=True
-)
-
+    suppress_callback_exceptions=True,
+    assets_folder="assets"
+    )
+ 
 app.title = "Ford GoBike Analytics"
-
+ 
 app.layout = html.Div(
     [
         build_header(),
@@ -78,11 +81,28 @@ app.layout = html.Div(
         "padding": "0",
     },
 )
-
+ 
+ 
+# ---- فتح/قفل الفلاتر بزرار الـ ☰ ----
+@app.callback(
+    Output("filters-panel", "style"),
+    Input("filters-toggle-btn", "n_clicks"),
+    State("filters-panel", "style"),
+    prevent_initial_call=True,
+)
+def toggle_filters(n_clicks, current_style):
+    current_style = dict(current_style or {})
+    is_open = current_style.get("display") != "none"
+    current_style["display"] = "none" if is_open else "block"
+    return current_style
+ 
+ 
 @app.callback(
     Output("kpi-total-trips", "children"),
     Output("kpi-avg-duration", "children"),
     Output("kpi-unique-bikes", "children"),
+    Output("kpi-active-stations", "children"),
+    Output("kpi-busiest-station", "children"),
     Output("gr1", "figure"),
     Output("gr2", "figure"),
     Output("gr3", "figure"),
@@ -98,6 +118,7 @@ app.layout = html.Div(
     Output("gr11", "figure"),
     Output("gr12", "figure"),
     Output("stations-map", "figure"),
+    Output("route-flow-map", "figure"),
     Input("user-type-filter", "value"),
     Input("gender-filter", "value"),
     Input("age-group-filter", "value"),
@@ -105,30 +126,37 @@ app.layout = html.Div(
     Input("Bike-share", "value"),
     Input("trip-duration-filter", "value"),
     Input("top-station-filter", "value"),
-
+    Input("date-range-filter", "start_date"),
+    Input("date-range-filter", "end_date"),
 )
 def update_dashboard(
     user_types,
     genders,
     age_groups,
-    days,share,
+    days,
+    share,
     duration_range,
     top_station_n,
+    start_date,
+    end_date,
 ):
     filtered = filter_dataframe(
         df,
         user_types,
         genders,
         age_groups,
-        days,share,
+        days,
+        share,
         duration_range,
+        start_date,
+        end_date,
     )
-
+ 
     overview_figures = create_overview_charts(filtered)
     time_figures = create_time_charts(filtered)
     user_figures = create_user_charts(filtered)
     trip_figures = create_trip_charts(filtered)
-
+ 
     stations_map = create_stations_map(
         filtered,
         top_n=(
@@ -137,38 +165,64 @@ def update_dashboard(
             else 10
         ),
     )
+ 
+    route_flow_map = create_route_flow_map(
+    filtered,
+    top_n=(
+        top_station_n
+        if top_station_n
+        else 10
+    ),
+    )
+    
 
     total_trips = len(filtered)
-
+ 
     if total_trips == 0:
         unique_bikes_text = "0"
         avg_duration = "N/A"
+        busiest_station = "N/A"
+        active_stations = "0"
     else:
         avg_duration = (
             int(filtered["duration_min"].mean())
             if "duration_min" in filtered.columns
             else None
         )
-
+ 
         unique_bikes_text = (
             str(filtered["bike_id"].nunique())
             if "bike_id" in filtered.columns
             else "N/A"
         )
-
+        active_stations = (
+            str(filtered["start_station_id"].nunique())
+            if "start_station_id" in filtered.columns
+            else "N/A"
+        )
+        if "start_station_name" in filtered.columns and not filtered["start_station_name"].dropna().empty:
+            busiest_station = filtered["start_station_name"].mode().iloc[0]
+        else:
+            busiest_station = "N/A"
+ 
+ 
     return (
         total_trips,
         avg_duration,
         unique_bikes_text,
+        active_stations,
+        busiest_station,
         *overview_figures,
         *time_figures,
         *user_figures,
         *trip_figures,
         stations_map,
+        route_flow_map,
     )
-
+ 
 if __name__ == "__main__":
     app.run(
         debug=True,
         port=3000,
     )
+ 

@@ -23,5 +23,5 @@ GREEN_THEME = {
     "secondary": "#4DB6AC",
     "dark": "#0D5C63",
     "light": "#3AAFA9",
-    "accent": "#6C5CE7",
+    "accent": "#1F9E89",
 }

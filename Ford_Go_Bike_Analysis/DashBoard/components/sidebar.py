@@ -71,6 +71,7 @@ def side_bar(df):
             ),
             dcc.DatePickerRange(
                 id="date-range-filter",
+                number_of_months_shown=1,
                 min_date_allowed=min_date,
                 max_date_allowed=max_date,
                 start_date=min_date,
@@ -220,6 +221,7 @@ def side_bar(df):
                 className="custom-slider",
             ),
         ],
+        id="filters-panel",
         style={
             **CARD_STYLE,
             "width": "260px",
@@ -227,5 +229,7 @@ def side_bar(df):
             "height": "fit-content",
             "position": "sticky",
             "top": "20px",
+            "display": "none",
+            "zIndex": 1000,
         },
     )

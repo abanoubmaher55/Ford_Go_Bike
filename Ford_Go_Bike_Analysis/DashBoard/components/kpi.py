@@ -16,7 +16,9 @@ def kpi_row():
         [
             kpi_card("Total Trips", "kpi-total-trips"),
             kpi_card("Average Trip Duration (min)", "kpi-avg-duration"),
-            kpi_card("Unique Bikes", "kpi-unique-bikes")
+            kpi_card("Active Bikes", "kpi-unique-bikes"),
+            kpi_card("Active Stations", "kpi-active-stations"),
+            kpi_card("Top Station", "kpi-busiest-station")
         ],
         style={"display": "flex", "gap": "16px", "flexWrap": "wrap", "marginTop": "6px", "marginBottom": "0px"},
     )

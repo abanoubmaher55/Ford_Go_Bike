@@ -6,6 +6,8 @@ def filter_dataframe(
     days,
     share,
     duration_range=None,
+    start_date=None,
+    end_date=None,
 ):
     data = df.copy()
 
@@ -45,6 +47,12 @@ def filter_dataframe(
                 min_duration,
                 max_duration
             )
+        ]
+
+    if start_date and end_date:
+        data = data[
+            (data["start_time"] >= start_date) &
+            (data["start_time"] <= end_date)
         ]
 
     return data
