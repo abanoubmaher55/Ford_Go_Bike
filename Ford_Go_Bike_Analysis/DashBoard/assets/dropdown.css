@@ -281,3 +281,20 @@
 .custom-slider .rc-slider-tooltip-arrow {
     border-top-color: #1F9E89 !important;
 }
+
+.dash-slider-track{
+    --Dash-Fill-Interactive-Strong:#1F9E89 ;
+}
+
+.dash-slider-thumb{
+    background-color: #0D5C63;
+}
+
+.dash-datepicker{
+    outline-color:#0D5C63
+    
+}
+
+:root{
+    --Dash-Fill-Interactive-Strong :#1F9E89
+}
