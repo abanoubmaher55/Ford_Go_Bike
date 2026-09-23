@@ -111,6 +111,7 @@ def style_figure(
             color=COLORS["secondary_text"]
         ),
         zeroline=False,
+        
     )
 
     fig.update_layout(

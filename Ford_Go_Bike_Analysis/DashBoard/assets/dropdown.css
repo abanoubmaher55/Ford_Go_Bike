@@ -179,9 +179,6 @@
 }
 
 
-/* =========================
-   Scrollbar
-   ========================= */
 
 .dash-options-list::-webkit-scrollbar {
     width: 6px;
@@ -197,7 +194,7 @@
 }
 
 .dash-options-list::-webkit-scrollbar-thumb:hover {
-    background: #98a2b3;
+    background: #7e848f;
 }
 
 

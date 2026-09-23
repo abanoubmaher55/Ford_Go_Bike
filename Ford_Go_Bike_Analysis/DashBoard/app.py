@@ -1,14 +1,14 @@
 import pandas as pd
 import os
 from dash import Dash, html, Input, Output, State
- 
+
 from components.colors import COLORS
 from components.header import build_header
 from components.sidebar import side_bar
 from components.tabs import build_tabs
- 
+
 from utils.data_filter import filter_dataframe
- 
+
 from charts.overview import create_overview_charts
 from charts.time_analysis import create_time_charts
 from charts.user_analysis import create_user_charts
@@ -17,9 +17,9 @@ from charts.trip_analysis import (
     create_stations_map,
     create_route_flow_map,
 )
- 
+
 df = pd.read_csv(
-    r"Ford_Go_Bike_Analysis\Part1-DataBase (Omar)\cleaned_data.csv"
+    r"Ford_Go_Bike_Analysis\Part1-DataBase\cleaned_data.csv"
 )
  
 df["start_time"] = pd.to_datetime(
@@ -37,7 +37,7 @@ if "duration_min" not in df.columns:
             errors="coerce"
         ) / 60
     )
- 
+
 
 app = Dash(
     __name__,
@@ -82,9 +82,7 @@ app.layout = html.Div(
         "padding": "0",
     },
 )
- 
- 
-# ---- فتح/قفل الفلاتر بزرار الـ ☰ ----
+
 @app.callback(
     Output("filters-panel", "style"),
     Input("filters-toggle-btn", "n_clicks"),
@@ -190,7 +188,7 @@ def update_dashboard(
             avg_duration = int(mean_duration) if pd.notna(mean_duration) else "N/A"
         else:
             avg_duration = "N/A"
- 
+
         unique_bikes_text = (
             str(filtered["bike_id"].nunique())
             if "bike_id" in filtered.columns
@@ -205,8 +203,7 @@ def update_dashboard(
             busiest_station = filtered["start_station_name"].mode().iloc[0]
         else:
             busiest_station = "N/A"
- 
- 
+
     return (
         total_trips,
         avg_duration,
@@ -220,10 +217,10 @@ def update_dashboard(
         stations_map,
         route_flow_map,
     )
- 
+
 if __name__ == "__main__":
     app.run(
         debug=True,
         port=3000,
     )
- 
+
